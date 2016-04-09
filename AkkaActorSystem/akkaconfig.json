@@ -1,0 +1,45 @@
+﻿{
+  "akka": {
+    // Loggers to register at boot time
+    "loggers": [ "Akka.Logger.Serilog.SerilogLogger,Akka.Logger.Serilog" ],
+    // Log level used by the configured loggers (see "loggers") as soon
+    // as they have been started; before that, see "stdout-loglevel"
+    // Options: OFF, ERROR, WARNING, INFO, DEBUG
+    "loglevel": "DEBUG",
+    // Log level for the very basic logger activated during ActorSystem startup.
+    // This logger prints the log messages to stdout (System.out).
+    // Options: OFF, ERROR, WARNING, INFO, DEBUG
+    "stdout-loglevel": "DEBUG",
+    // Log the complete configuration at INFO level when the actor system is started.
+    // This is useful when you are uncertain of what configuration is used.
+    "log-config-on-start": "on",
+    // Log at info level when messages are sent to dead letters.
+    // Possible values:
+    // on: all dead letters are logged
+    // off: no logging of dead letters
+    // n: positive integer, number of dead letters that will be logged
+    "log-dead-letters": "on",
+    // Possibility to turn off logging of dead letters while the actor system
+    // is shutting down. Logging is only done when enabled by 'log-dead-letters'
+    // setting.
+    "log-dead-letters-during-shutdown": "on",
+
+    "actor": {
+      
+      "debug": {
+        "receive": "on",
+        "autoreceive": "on",
+        "lifecycle": "on",
+        "event-stream": "on",
+        "unhandled": "on",
+        "router-misconfiguration": "on"
+      },
+      "deployment": {
+        "/Coordinator/Worker": {
+          "router": "round-robin-pool",
+          "nr-of-instances": "3"
+        }
+      }
+    }
+  }
+}
